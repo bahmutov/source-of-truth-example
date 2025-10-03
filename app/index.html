@@ -238,8 +238,8 @@
         </header>
         <div class="dialog-body">
           <p class="dialog-total-label">Total Paid</p>
-          <p class="dialog-total-value" id="dialog-total-value">
-            $304.97
+          <p class="dialog-total-value">
+            $ <span id="dialog-total-value">304.97</span>
           </p>
         </div>
         <footer class="dialog-footer">
@@ -283,8 +283,8 @@
         function openDialog() {
           if (!nativeDialog) return
           lastFocusedElement = document.activeElement
-          dialogTotalValue.textContent =
-            totalSpan?.textContent?.trim() || ''
+          // dialogTotalValue.textContent =
+          //   totalSpan?.textContent?.trim() || ''
           if (typeof nativeDialog.showModal === 'function') {
             nativeDialog.showModal()
           } else {
