@@ -11,286 +11,7 @@
       name="description"
       content="Purchase receipt with order details, itemized list, taxes, fees, and totals."
     />
-    <style>
-      :root {
-        --bg: #f5f7fa;
-        --surface: #ffffff;
-        --border: #e2e8f0;
-        --border-strong: #cbd5e1;
-        --text: #1e293b;
-        --text-light: #64748b;
-        --accent: #2563eb;
-        --accent-bg: #eff6ff;
-        --danger: #dc2626;
-        --radius-sm: 4px;
-        --radius-md: 8px;
-        --shadow-sm:
-          0 1px 2px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.04);
-        --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-        font-family:
-          system-ui,
-          -apple-system,
-          BlinkMacSystemFont,
-          'Segoe UI',
-          Roboto,
-          Oxygen,
-          Ubuntu,
-          Cantarell,
-          'Fira Sans',
-          'Droid Sans',
-          'Helvetica Neue',
-          Arial,
-          sans-serif;
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-      body {
-        margin: 0;
-        background: var(--bg);
-        color: var(--text);
-        -webkit-font-smoothing: antialiased;
-        padding: 2rem 1rem 4rem;
-      }
-      header {
-        max-width: 960px;
-        margin: 0 auto 1.5rem;
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
-        gap: 1rem;
-        flex-wrap: wrap;
-      }
-      .brand {
-        font-size: 1.5rem;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-        color: var(--accent);
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
-      .brand svg {
-        width: 32px;
-        height: 32px;
-      }
-      .order-meta {
-        font-size: 0.9rem;
-        color: var(--text-light);
-        text-align: right;
-      }
-      .container {
-        max-width: 960px;
-        margin: 0 auto;
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: var(--radius-md);
-        box-shadow: var(--shadow-sm);
-        overflow: hidden;
-      }
-      .receipt-header {
-        padding: 1.25rem 1.5rem;
-        background: linear-gradient(90deg, var(--accent-bg), #fff);
-        border-bottom: 1px solid var(--border);
-        display: flex;
-        gap: 2rem;
-        flex-wrap: wrap;
-      }
-      .section-block {
-        flex: 1 1 240px;
-        min-width: 200px;
-      }
-      .section-block h2 {
-        margin: 0 0 0.5rem;
-        font-size: 1rem;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-        color: var(--text-light);
-      }
-      .address,
-      .payment,
-      .summary {
-        font-size: 0.95rem;
-        line-height: 1.4;
-      }
-      .items-wrapper {
-        padding: 1rem 1.5rem 2rem;
-      }
-      table.items {
-        width: 100%;
-        border-collapse: collapse;
-      }
-      table.items thead th {
-        text-align: left;
-        font-size: 0.75rem;
-        letter-spacing: 0.5px;
-        font-weight: 600;
-        text-transform: uppercase;
-        color: var(--text-light);
-        padding: 0.75rem 0.75rem;
-        background: #f1f5f9;
-        border-bottom: 1px solid var(--border);
-      }
-      table.items tbody tr {
-        border-bottom: 1px solid var(--border);
-      }
-      table.items tbody tr:last-child {
-        border-bottom: 0;
-      }
-      table.items td {
-        padding: 0.9rem 0.75rem;
-        vertical-align: top;
-        font-size: 0.95rem;
-      }
-      table.items td.price,
-      table.items td.qty,
-      table.items td.line-total {
-        white-space: nowrap;
-      }
-      table.items td.line-total {
-        font-weight: 600;
-      }
-      .item-title {
-        font-weight: 500;
-      }
-      .item-sku {
-        display: block;
-        font-size: 0.7rem;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-        color: var(--text-light);
-        margin-top: 0.35rem;
-      }
-      .badge {
-        display: inline-block;
-        background: var(--accent-bg);
-        color: var(--accent);
-        padding: 2px 6px;
-        font-size: 0.65rem;
-        border-radius: 999px;
-        letter-spacing: 0.5px;
-        font-weight: 600;
-        margin-left: 0.5rem;
-      }
-      .totals-panel {
-        max-width: 420px;
-        margin-left: auto;
-        margin-top: 2rem;
-        border: 1px solid var(--border);
-        border-radius: var(--radius-md);
-        overflow: hidden;
-        box-shadow: var(--shadow-sm);
-      }
-      .totals-row {
-        display: flex;
-        justify-content: space-between;
-        padding: 0.85rem 1rem;
-        font-size: 0.9rem;
-        background: #fff;
-      }
-      .totals-row:nth-child(even) {
-        background: #f8fafc;
-      }
-      .totals-row strong {
-        font-size: 1rem;
-      }
-      .totals-row.grand {
-        background: var(--accent);
-        color: #fff;
-        font-weight: 600;
-        font-size: 1rem;
-      }
-      .totals-row.grand span {
-        font-weight: 600;
-      }
-      .status {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.4rem;
-        font-size: 0.8rem;
-        font-weight: 600;
-        color: #15803d;
-        background: #ecfdf5;
-        border: 1px solid #bbf7d0;
-        padding: 0.3rem 0.6rem;
-        border-radius: 6px;
-      }
-      footer {
-        max-width: 960px;
-        margin: 2rem auto 0;
-        font-size: 0.75rem;
-        color: var(--text-light);
-        text-align: center;
-      }
-      .print-action {
-        text-align: right;
-        margin-top: 1rem;
-      }
-      button.print-btn {
-        appearance: none;
-        cursor: pointer;
-        border: 1px solid var(--accent);
-        background: var(--accent);
-        color: #fff;
-        padding: 0.6rem 1rem;
-        font-size: 0.85rem;
-        border-radius: var(--radius-sm);
-        font-weight: 500;
-        letter-spacing: 0.25px;
-        display: inline-flex;
-        gap: 0.4rem;
-        align-items: center;
-        transition:
-          background 0.15s,
-          box-shadow 0.15s,
-          transform 0.15s;
-      }
-      button.print-btn:hover {
-        background: #1d4ed8;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-      }
-      button.print-btn:active {
-        transform: translateY(1px);
-      }
-
-      @media (max-width: 680px) {
-        .receipt-header {
-          flex-direction: column;
-        }
-        header {
-          justify-content: center;
-          text-align: center;
-        }
-        .order-meta {
-          text-align: center;
-        }
-      }
-
-      @media print {
-        body {
-          background: #fff;
-          padding: 0;
-        }
-        header,
-        .print-action {
-          display: none !important;
-        }
-        .container {
-          border: 0;
-          box-shadow: none;
-          border-radius: 0;
-        }
-        .totals-panel {
-          box-shadow: none;
-        }
-        a[href]::after {
-          content: ' (' attr(href) ')';
-          font-size: 0.7em;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <header>
@@ -372,16 +93,7 @@
             <time datetime="2025-10-03T10:15:00-07:00"
               >Oct 3, 2025 10:15 AM PDT</time
             ><br />
-            Transaction:
-            <code
-              style="
-                font-size: 0.75rem;
-                background: #e2e8f0;
-                padding: 2px 4px;
-                border-radius: 4px;
-              "
-              >TXN-89XZ71</code
-            >
+            Transaction: <code class="code-chip">TXN-89XZ71</code>
           </div>
         </div>
         <div class="section-block" role="group" aria-label="Summary">
@@ -395,15 +107,7 @@
 
       <div class="items-wrapper">
         <table class="items" aria-describedby="items-caption">
-          <caption
-            id="items-caption"
-            style="
-              text-align: left;
-              padding: 0.5rem 0.25rem 1rem;
-              font-size: 0.85rem;
-              color: var(--text-light);
-            "
-          >
+          <caption id="items-caption">
             Itemized purchase list
           </caption>
           <thead>
@@ -434,11 +138,7 @@
             <tr>
               <td>
                 <span class="item-title">USB-C Fast Charger 65W</span>
-                <span
-                  class="badge"
-                  style="background: #fef3c7; color: #b45309"
-                  >Accessory</span
-                >
+                <span class="badge badge-accessory">Accessory</span>
                 <span class="item-sku" aria-label="SKU"
                   >SKU: CHRG-65W-USB-C</span
                 >
@@ -450,11 +150,7 @@
             <tr>
               <td>
                 <span class="item-title">Protective Travel Case</span>
-                <span
-                  class="badge"
-                  style="background: #ecfdf5; color: #15803d"
-                  >Bundle</span
-                >
+                <span class="badge badge-bundle">Bundle</span>
                 <span class="item-sku" aria-label="SKU"
                   >SKU: CASE-TRAVEL-01</span
                 >
