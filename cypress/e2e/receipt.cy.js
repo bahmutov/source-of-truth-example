@@ -3,7 +3,7 @@
 /// <reference types="cypress" />
 
 describe('Receipt', () => {
-  it('shows the price', () => {
+  it('shows the price on the receipt', () => {
     cy.visit('app/index.html')
   })
 })

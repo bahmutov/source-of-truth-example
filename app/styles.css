@@ -263,6 +263,118 @@ button.print-btn:active {
   transform: translateY(1px);
 }
 
+/* Secondary action button */
+.btn-secondary {
+  appearance: none;
+  cursor: pointer;
+  border: 1px solid var(--border-strong);
+  background: #fff;
+  color: var(--text);
+  padding: 0.6rem 1rem;
+  font-size: 0.85rem;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  letter-spacing: 0.25px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: 0.6rem;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    box-shadow 0.15s,
+    border-color 0.15s;
+}
+.btn-secondary:hover {
+  background: var(--accent-bg);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.btn-secondary:active {
+  transform: translateY(1px);
+}
+
+/* Dialog */
+dialog.dialog {
+  padding: 0;
+  background: #fff;
+  color: var(--text);
+  width: 100%;
+  max-width: 420px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  animation: dialogFade 0.25s ease;
+}
+dialog.dialog::backdrop {
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(4px);
+}
+@keyframes dialogFade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+.dialog-header h2 {
+  font-size: 1rem;
+  margin: 0;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--text-light);
+}
+.dialog-body {
+  padding: 1.25rem 1.25rem 0.5rem;
+}
+.dialog-total-label {
+  margin: 0 0 0.25rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--text-light);
+}
+.dialog-total-value {
+  margin: 0;
+  font-size: 2.25rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--accent);
+}
+.dialog-footer {
+  padding: 1rem 1.25rem 1.25rem;
+  display: flex;
+  justify-content: flex-end;
+}
+.dialog-close {
+  background: none;
+  border: 0;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--text-light);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+}
+.dialog-close:hover {
+  background: var(--accent-bg);
+  color: var(--accent);
+}
+.dialog-close:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .code-chip {
   font-size: 0.75rem;
   background: #e2e8f0;

@@ -176,7 +176,8 @@
             <span>Estimated Tax (8.75%)</span><span>$24.03</span>
           </div>
           <div class="totals-row grand">
-            <span>Total Paid</span><span>$304.97</span>
+            <span>Total Paid</span
+            ><span id="grand-total">$304.97</span>
           </div>
         </div>
 
@@ -206,9 +207,48 @@
             </svg>
             Print Receipt
           </button>
+          <button
+            class="btn-secondary summary-btn"
+            type="button"
+            aria-haspopup="dialog"
+            aria-expanded="false"
+          >
+            View Summary
+          </button>
         </div>
       </div>
     </main>
+
+    <!-- Summary Dialog (native element) -->
+    <dialog
+      id="summary-dialog"
+      class="dialog"
+      aria-labelledby="summary-dialog-title"
+    >
+      <form method="dialog">
+        <header class="dialog-header">
+          <h2 id="summary-dialog-title">Order Summary</h2>
+          <button
+            class="dialog-close"
+            value="cancel"
+            aria-label="Close summary"
+          >
+            &times;
+          </button>
+        </header>
+        <div class="dialog-body">
+          <p class="dialog-total-label">Total Paid</p>
+          <p class="dialog-total-value" id="dialog-total-value">
+            $304.97
+          </p>
+        </div>
+        <footer class="dialog-footer">
+          <button class="btn-secondary" value="cancel" type="submit">
+            Close
+          </button>
+        </footer>
+      </form>
+    </dialog>
 
     <footer>
       This receipt is for your records. If you have any questions,
@@ -232,6 +272,36 @@
           )
           dateEl.dateTime = now.toISOString().split('T')[0]
         }
+        // Summary dialog behavior (native <dialog>)
+        const summaryBtn = document.querySelector('.summary-btn')
+        const nativeDialog = document.getElementById('summary-dialog')
+        const totalSpan = document.getElementById('grand-total')
+        const dialogTotalValue = document.getElementById(
+          'dialog-total-value',
+        )
+        let lastFocusedElement = null
+        function openDialog() {
+          if (!nativeDialog) return
+          lastFocusedElement = document.activeElement
+          dialogTotalValue.textContent =
+            totalSpan?.textContent?.trim() || ''
+          if (typeof nativeDialog.showModal === 'function') {
+            nativeDialog.showModal()
+          } else {
+            nativeDialog.setAttribute('open', '')
+          }
+          summaryBtn.setAttribute('aria-expanded', 'true')
+        }
+        summaryBtn?.addEventListener('click', openDialog)
+        nativeDialog?.addEventListener('close', () => {
+          summaryBtn.setAttribute('aria-expanded', 'false')
+          if (
+            lastFocusedElement &&
+            typeof lastFocusedElement.focus === 'function'
+          ) {
+            lastFocusedElement.focus()
+          }
+        })
       })()
     </script>
   </body>
