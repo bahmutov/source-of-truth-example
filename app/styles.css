@@ -233,8 +233,13 @@ footer {
   text-align: center;
 }
 .print-action {
-  text-align: right;
+  /* Arrange the action buttons on one horizontal line */
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.6rem;
   margin-top: 1rem;
+  text-align: right; /* fallback for any inline children */
 }
 button.print-btn {
   appearance: none;
@@ -284,6 +289,10 @@ button.print-btn:active {
     color 0.15s,
     box-shadow 0.15s,
     border-color 0.15s;
+}
+.print-action .btn-secondary {
+  /* spacing handled by flex gap */
+  margin-left: 0;
 }
 .btn-secondary:hover {
   background: var(--accent-bg);
